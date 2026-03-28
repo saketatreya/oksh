@@ -1,4 +1,4 @@
-# Custom Shell Project
+# OK Shell 
 
 ## Project Overview
 
@@ -134,27 +134,3 @@ Supports piping (`|`) for command chaining.
 <saket@Sakets-MacBook-Air.local:~> log execute 1
 ```
 
-## Prompts and Responses for ChatGPT Usage
-
-To provide a more hands-on learning and coding experience, the following prompts and responses were used to develop this shell. These helped solve specific implementation issues without making the project feel entirely created by ChatGPT:
-
-**Prompt:** *"How do I implement a custom command history in a shell, and how can I skip consecutive duplicates?"*
-
-**Response:** "You can maintain a circular buffer to store the last N commands, ensuring duplicate consecutive commands are skipped. To handle duplicates, compare the current command with the last entry before adding it to the history."
-
-**Prompt:** *"What are the steps to handle background and foreground process management in a shell?"*
-
-**Response:** "Use `fork()` to create new processes and `waitpid()` to manage them. For background processes, you need to track their PIDs and use `&` to indicate background execution. To bring a background process to the foreground, use `tcsetpgrp()` to give it terminal control."
-
-**Prompt:** *"Can you guide me on adding colors to my shell prompt in C?"*
-**Response:** "Use ANSI escape codes in your printf statements to add colors. For example, `\033[1;32m` sets text to bright green. Remember to reset the colors using `\033[0m` after the prompt is printed."
-
-**Prompt:** *"How can I parse and execute commands with both '&' and ';' operators in my custom shell?"*
-**Response:** "First, split the input string by ; to handle sequential commands, then check each command for `&` to run them in the background. Use `fork()` and `execvp()` for command execution and handle background processes without calling waitpid() immediately."
-
-**Prompt:** *"How can I implement input/output redirection and piping in my shell?"*
-**Response:** "Use `dup2()` to redirect file descriptors for input (`<`) and output (`>`, `>>`). For piping (`|`), use `pipe()` to create a pipe and `dup2()` to connect the pipe's read and write ends to the appropriate file descriptors before executing commands."
-
-**Prompt:** "What's the best way to handle aliases and functions in a shell configuration file?*
-
-**Response:** "Store aliases and functions in a configuration file (e.g., .myshrc). Read the file at shell startup, use strtok() to parse alias definitions, and store them in a list. Replace the command with its alias before execution."
